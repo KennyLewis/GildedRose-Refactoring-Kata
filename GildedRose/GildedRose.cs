@@ -58,6 +58,8 @@ public class GildedRose
     {
         item.DecrementQuality();
 
+        item.DecrementSellIn();
+
         // Once the sell by date has passed, Quality degrades twice as fast
         if (item.SellIn < 0)
         {
