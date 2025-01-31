@@ -11,60 +11,77 @@ public class GildedRose
         this.Items = Items;
     }
 
-    public void UpdateQuality(ItemProxy item)
+    public void UpdateSulfuras(ItemProxy item)
     {
-        if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.DecrementQuality();
-            }
-        }
-        else
-        {
-            item.IncrementQuality();
+        // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+    }
 
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-            {
-                if (item.SellIn < 11)
-                {
-                    item.IncrementQuality();
-                }
+    public void UpdateAgedBrie(ItemProxy item)
+    {
+        item.IncrementQuality();
+        item.DecrementSellIn();
 
-                if (item.SellIn < 6)
-                {
-                    item.IncrementQuality();
-                }
-            }
-
-        }
-
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            item.DecrementSellIn();
-        }
-
+        // "Aged Brie" actually increases in Quality the older it gets
         if (item.SellIn < 0)
         {
-            if (item.Name != "Aged Brie")
-            {
-                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (item.Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        item.DecrementQuality();
-                    }
-                }
-                else
-                {
-                    item.ResetQuality();
-                }
-            }
-            else
-            {
-                item.IncrementQuality();
-            }
+            item.IncrementQuality();
         }
+    }
+
+    public void UpdateBackstagePasses(ItemProxy item)
+    {
+        // "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches
+        item.IncrementQuality();
+
+        // Quality increases by 2 when there are 10 days or less
+        if (item.SellIn <= 10)
+        {
+            item.IncrementQuality();
+        }
+
+        // Quality increases by 3 when there are 5 days or less
+        if (item.SellIn <= 5)
+        {
+            item.IncrementQuality();
+        }
+
+        item.DecrementSellIn();
+
+        // but Quality drops to 0 after the concert
+        if (item.SellIn < 0)
+        {
+            item.ResetQuality();
+        }
+    }
+
+    public void UpdateNormalItem(ItemProxy item)
+    {
+        item.DecrementQuality();
+
+        // Once the sell by date has passed, Quality degrades twice as fast
+        if (item.SellIn < 0)
+        {
+            item.DecrementQuality();
+        }
+    }
+
+    public void UpdateQuality(ItemProxy item)
+    {
+        switch (item.Name)
+        {
+            case "Sulfuras, Hand of Ragnaros":
+                UpdateSulfuras(item); 
+                break;
+            case "Aged Brie":
+                UpdateAgedBrie(item); 
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
+                UpdateBackstagePasses(item);
+                break;
+            default:
+                UpdateNormalItem(item);
+                break;
+        }      
     }
 
     public void UpdateQuality()
