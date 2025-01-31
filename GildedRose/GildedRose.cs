@@ -69,14 +69,14 @@ public class GildedRose
     {
         switch (item.Name)
         {
-            case "Sulfuras, Hand of Ragnaros":
-                UpdateSulfuras(item); 
-                break;
             case "Aged Brie":
-                UpdateAgedBrie(item); 
+                UpdateAgedBrie(item);
                 break;
             case "Backstage passes to a TAFKAL80ETC concert":
                 UpdateBackstagePasses(item);
+                break;
+            case "Sulfuras, Hand of Ragnaros":
+                UpdateSulfuras(item); 
                 break;
             default:
                 UpdateNormalItem(item);
