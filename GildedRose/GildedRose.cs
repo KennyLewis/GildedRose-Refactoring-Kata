@@ -57,7 +57,6 @@ public class GildedRose
     public void UpdateNormalItem(ItemProxy item)
     {
         item.DecrementQuality();
-
         item.DecrementSellIn();
 
         // Once the sell by date has passed, Quality degrades twice as fast
