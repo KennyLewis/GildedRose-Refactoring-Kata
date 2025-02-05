@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace DesignPatternsInCSharp.KataWithPatterns
 {
-    public class GildedRoseUpdateQualityGivenAgedBrie
+    public class GildedRoseUpdateQualityGivenBackstagePass
     {
         private List<Item> _items = new List<Item>();
         private Item _item;
@@ -17,37 +17,63 @@ namespace DesignPatternsInCSharp.KataWithPatterns
         {
             _items = new List<Item>();
             _service = new GildedRose(_items);
-            _item = GetAgedBrie();
+            _item = GetBackstagePass();
             _items.Add(_item);
         }
 
-        public GildedRoseUpdateQualityGivenAgedBrie()
+        public GildedRoseUpdateQualityGivenBackstagePass()
         {
             _service = new GildedRose(_items);
-            _item = GetAgedBrie();
+            _item = GetBackstagePass();
             _items.Add(_item);
         }
 
-        private Item GetAgedBrie()
+        private Item GetBackstagePass()
         {
-            return new Item { Name = "Aged Brie", Quality = INITIAL_QUALITY, SellIn = INITIAL_SELL_IN };
+            return new Item { Name = "Backstage passes to a TAFKAL80ETC concert", Quality = INITIAL_QUALITY, SellIn = INITIAL_SELL_IN };
         }
 
         [Test]
-        public void IncreasesAgedBrieQualityBy1GivenPositiveSellIn()
+        public void IncreasesBackstagePassQualityBy1GivenPositiveSellIn()
         {
             _service.UpdateQuality();
 
             Assert.That(INITIAL_QUALITY + 1, Is.EqualTo(_item.Quality));
         }
 
+        [TestCase(10)]
+        [TestCase(9)]
+        [TestCase(8)]
+        [TestCase(7)]
+        [TestCase(6)]
+        public void IncreasesBackstagePassQualityBy2GivenPositiveSellInBetween5And10(int sellIn)
+        {
+            _item.SellIn = sellIn;
+            _service.UpdateQuality();
+
+            Assert.That(INITIAL_QUALITY + 2, Is.EqualTo(_item.Quality));
+        }
+
+        [TestCase(5)]
+        [TestCase(4)]
+        [TestCase(3)]
+        [TestCase(2)]
+        [TestCase(1)]
+        public void IncreasesBackstagePassQualityBy3GivenPositiveSellInBetween1And5(int sellIn)
+        {
+            _item.SellIn = sellIn;
+            _service.UpdateQuality();
+
+            Assert.That(INITIAL_QUALITY + 3, Is.EqualTo(_item.Quality));
+        }
+
         [Test]
-        public void IncreasesAgedBrieQualityBy2GivenNonPositiveSellIn()
+        public void SetBackstagePassQualityTo0GivenNonPositiveSellIn()
         {
             _item.SellIn = 0;
             _service.UpdateQuality();
 
-            Assert.That(INITIAL_QUALITY + 2, Is.EqualTo(_item.Quality));
+            Assert.That(0, Is.EqualTo(_item.Quality));
         }
 
         [Test]
@@ -59,12 +85,11 @@ namespace DesignPatternsInCSharp.KataWithPatterns
             Assert.That(50, Is.EqualTo(_item.Quality));
         }
 
-        [TestCase(48)]
         [TestCase(49)]
         [TestCase(50)]
         public void DoesNotIncreaseQualityAbove50GivenNonPositiveSellIn(int initialQuality)
         {
-            _item.SellIn = 0;
+            _item.SellIn = INITIAL_SELL_IN;
             _item.Quality = initialQuality;
             _service.UpdateQuality();
 
@@ -72,7 +97,7 @@ namespace DesignPatternsInCSharp.KataWithPatterns
         }
 
         [Test]
-        public void ReducesAgedBrieSellInBy1()
+        public void ReducesBackstagePassSellInBy1()
         {
             _service.UpdateQuality();
 
