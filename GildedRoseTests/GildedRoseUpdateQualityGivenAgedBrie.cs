@@ -21,7 +21,6 @@ namespace DesignPatternsInCSharp.KataWithPatterns
             _items.Add(_item);
         }
 
-
         public GildedRoseUpdateQualityGivenAgedBrie()
         {
             _service = new GildedRose(_items);
