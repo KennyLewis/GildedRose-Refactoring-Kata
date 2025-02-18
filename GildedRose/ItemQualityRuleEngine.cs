@@ -54,7 +54,8 @@ namespace DesignPatternsInCSharp.KataWithPatterns
 
             public ItemQualityRuleEngine Build()
             {
-                _builderRules.Add(new NormalItemRule()); // every engine has a normal item rule
+                // every engine has a normal item rule, make sure this is the last option
+                _builderRules.Add(new NormalItemRule());
 
                 return new ItemQualityRuleEngine(_builderRules);
             }
