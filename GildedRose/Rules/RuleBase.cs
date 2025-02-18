@@ -1,4 +1,4 @@
-﻿namespace GildedRoseKata
+﻿namespace GildedRoseKata.Rules
 {
     public abstract class RuleBase
     {

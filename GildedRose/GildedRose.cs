@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DesignPatternsInCSharp.KataWithPatterns;
 
 namespace GildedRoseKata;
 
@@ -82,26 +83,34 @@ public class GildedRose
         }
     }
 
+    //public void UpdateQuality(ItemProxy item)
+    //{
+    //    switch (item.Name)
+    //    {
+    //        case "Aged Brie":
+    //            UpdateAgedBrie(item);
+    //            break;
+    //        case "Backstage passes to a TAFKAL80ETC concert":
+    //            UpdateBackstagePasses(item);
+    //            break;
+    //        case "Sulfuras, Hand of Ragnaros":
+    //            UpdateSulfuras(item);
+    //            break;
+    //        case "Conjured Mana Cake":
+    //            UpdateConjuredItem(item);
+    //            break;
+    //        default:
+    //            UpdateNormalItem(item);
+    //            break;
+    //    }
+    //}
+
     public void UpdateQuality(ItemProxy item)
     {
-        switch (item.Name)
-        {
-            case "Aged Brie":
-                UpdateAgedBrie(item);
-                break;
-            case "Backstage passes to a TAFKAL80ETC concert":
-                UpdateBackstagePasses(item);
-                break;
-            case "Sulfuras, Hand of Ragnaros":
-                UpdateSulfuras(item);
-                break;
-            case "Conjured Mana Cake":
-                UpdateConjuredItem(item);
-                break;
-            default:
-                UpdateNormalItem(item);
-                break;
-        }
+        var ruleEngine = new ItemQualityRuleEngine
+            .Builder()
+            .Build();
+        ruleEngine.ApplyRules(item);
     }
 
     public void UpdateQuality()
