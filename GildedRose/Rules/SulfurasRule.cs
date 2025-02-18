@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GildedRoseKata.Rules
+﻿namespace GildedRoseKata.Rules
 {
     public class SulfurasRule : RuleBase
     {
