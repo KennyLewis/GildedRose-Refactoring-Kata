@@ -54,6 +54,22 @@ public class GildedRose
         }
     }
 
+    public void UpdateConjuredItem(ItemProxy item)
+    {
+        // "Conjured" items degrade in Quality twice as fast as normal items
+        item.DecrementQuality();
+        item.DecrementQuality();
+
+        item.DecrementSellIn();
+
+        // Once the sell by date has passed, Quality degrades twice as fast
+        if (item.SellIn < 0)
+        {
+            item.DecrementQuality();
+            item.DecrementQuality();
+        }
+    }
+
     public void UpdateNormalItem(ItemProxy item)
     {
         item.DecrementQuality();
@@ -77,12 +93,15 @@ public class GildedRose
                 UpdateBackstagePasses(item);
                 break;
             case "Sulfuras, Hand of Ragnaros":
-                UpdateSulfuras(item); 
+                UpdateSulfuras(item);
+                break;
+            case "Conjured Mana Cake":
+                UpdateConjuredItem(item);
                 break;
             default:
                 UpdateNormalItem(item);
                 break;
-        }      
+        }
     }
 
     public void UpdateQuality()
