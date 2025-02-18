@@ -46,6 +46,12 @@ namespace DesignPatternsInCSharp.KataWithPatterns
                 return this;
             }
 
+            public Builder WithConjuredItemRule()
+            {
+                _builderRules.Add(new  ConjuredItemRule());
+                return this;
+            }
+
             public ItemQualityRuleEngine Build()
             {
                 _builderRules.Add(new NormalItemRule()); // every engine has a normal item rule
