@@ -28,6 +28,12 @@ namespace DesignPatternsInCSharp.KataWithPatterns
         {
             private List<RuleBase> _builderRules = new List<RuleBase>();
 
+            public Builder WithAgedBrieRule()
+            {
+                _builderRules.Add(new AgedBrieRule());
+                return this;
+            }
+
             public ItemQualityRuleEngine Build()
             {
                 _builderRules.Add(new NormalItemRule()); // every engine has a normal item rule

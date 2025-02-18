@@ -109,6 +109,7 @@ public class GildedRose
     {
         var ruleEngine = new ItemQualityRuleEngine
             .Builder()
+            .WithAgedBrieRule()
             .Build();
         ruleEngine.ApplyRules(item);
     }
