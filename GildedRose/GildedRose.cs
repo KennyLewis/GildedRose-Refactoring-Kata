@@ -66,6 +66,7 @@ public class GildedRose
         if (item.SellIn < 0)
         {
             item.DecrementQuality();
+            item.DecrementQuality();
         }
     }
 
