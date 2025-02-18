@@ -111,6 +111,7 @@ public class GildedRose
             .Builder()
             .WithAgedBrieRule()
             .WithSulfurasRule()
+            .WithBackstagePassRule()
             .Build();
         ruleEngine.ApplyRules(item);
     }

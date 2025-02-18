@@ -40,6 +40,12 @@ namespace DesignPatternsInCSharp.KataWithPatterns
                 return this;
             }
 
+            public Builder WithBackstagePassRule()
+            {
+                _builderRules.Add(new BackstagePassRule());
+                return this;
+            }
+
             public ItemQualityRuleEngine Build()
             {
                 _builderRules.Add(new NormalItemRule()); // every engine has a normal item rule
