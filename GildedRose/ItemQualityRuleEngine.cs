@@ -34,6 +34,12 @@ namespace DesignPatternsInCSharp.KataWithPatterns
                 return this;
             }
 
+            public Builder WithSulfurasRule()
+            {
+                _builderRules.Add(new SulfurasRule());
+                return this;
+            }
+
             public ItemQualityRuleEngine Build()
             {
                 _builderRules.Add(new NormalItemRule()); // every engine has a normal item rule
